@@ -218,6 +218,180 @@ make sure there is not more than one gateway entry
 
 
 
+# Centos Networking
+
+
+ifconfig depricated
+
+ip replace
+
+ip a (addr)
+
+review information displayed
+
+ip-4 addr - only show ipv4
+
+UP, LOWER_UP, state Up
+
+ip link set enp3847 down/up
+
+
+## ip cheatsheet
+
+
+ip addr
+
+    ip a show dev enp0s3
+    
+    ip a add x.x.x.x/24 dev xxx
+    
+    ip a del x.x.x.x/24 dev xxx
+    
+    
+ ip link
+   
+   ip link show dev enp0s3
+   
+   ip -s link
+   
+   ip link set dev xxx up
+   
+   ip link set dev xxx down
+   
+   ip link set empxxxx promisc on
+   
+ip route
+
+ip neigh
+
+  ip neigh show dev enp0s3
+  
+
+
+Manual Netork Setting
+
+
+config file for each network interface:
+
+ll /etc/sysconfig/network-scripts
+
+
+## Use DHCP
+
+edit the cofig file for desired interface:
+
+sudo vi enp0s3
+
+set BOOTPROTO=DHCP
+
+remove ADDR / PREFIX / GATEWAY info (in any)
+
+verify: restart networking and test
+
+
+## Use Static
+
+
+edit the config file for desired interface
+
+sudo vi enp0s3
+
+
+set BOOTPROTO=name
+
+set IPADDR= <ip>
+
+set PREFIX=24
+
+set GATEWAY= <gwip>
+
+set DNS1+<dnsip>
+
+set DNS2 =<secondary>
+
+
+verify: restart networking and test
+
+
+
+## Disable IPv6
+
+sysctl.conf
+
+edit the config file to disable IPv6 on all interfaces
+
+sudo vi /etc/sysctl.conf
+
+net.ipv6.conf.all.disable_ipv6 = 1
+
+net.ipv6.conf.default.disable_ipv6 = 1
+
+net.ipv6.conf.lo.disable_ipv6 = 1
+
+load change from /etc/sysctl.conf file 
+
+sudo systctl -p
+
+### host file
+
+edit host file to remove the ipv6 entry ::1
+
+sudo vi /etc/hosts
+
+
+## Firewalld - Basic Usage
+
+
+### open / allow traffic
+
+sudo firewall-cmd --zone=public --add-port = ####/tcp --permanent
+
+sudo firewall-cmd --reload
+
+
+## Close/deny traffic
+
+
+sudo firewall-cmd --zone=public --remove-port=####/tcp --permanent
+
+sudo forewall-cmd --reload
+
+
+### commit all running firewall rules into the startup rules
+
+sudo firewall-cmd --runtime-to-permanent
+
+### list all firewalld zones
+
+list all firewalld-cmd --list-all-zones
+
+### Monitoring Activity
+
+
+what's a socket?
+ 
+ ip / port / protocol defined to provide a connection or services
+ 
+ ss    is the new hotness
+ 
+ ss -lnt   shows all lisning
+ 
+ 
+
+
+
+
+
+
+
+    
+ 
+ 
+
+
+
+
+
 
 
 
