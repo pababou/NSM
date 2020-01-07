@@ -374,7 +374,7 @@ what's a socket?
  
  ss    is the new hotness
  
- ss -lnt   shows all lisning
+ ss -lnt   shows all listning
  
  
 
