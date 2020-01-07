@@ -185,23 +185,6 @@ pass, proto=all, source=any, dest=any
 
 now disable NAT firewall . nat > outbound: disable radio button
 
-
-## Configure Remaining Interfaces
-
-
-assign
-
-interfaces > assignments
-
-add em2 (OPT1)
-
-add em3 (OPT2)
-
-save
-
-enable
-
-
 ## Configure Remaining Interfaces
 
 assign
