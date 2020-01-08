@@ -169,7 +169,7 @@ reposync -l --repoid==repository_name --download_path=/repo/
 
 reposync -l --repoid=local-base --download_path=/srv/repo/ --newest-only --downloadcomps --download-metadata 
 
-reposync -l --repoid=local-WAndisco-git --download_path=/srv/repo/ --newest-only --downloadcomps --download-metadata 
+reposync -l --repoid=local-Wnndisco-git --download_path=/srv/repo/ --newest-only --downloadcomps --download-metadata 
 
 reposync -l --repoid=local-elasticsearch-7.x --download_path=/srv/repo/ --newest-only --downloadcomps --download-metadata 
 
@@ -187,7 +187,6 @@ reposync -l --repoid=local-zerotier --download_path=/srv/repo/ --newest-only --d
 
 reposync -l --repoid=localstuff --download_path=/srv/repo/ --newest-only --downloadcomps --download-metadata
 
-reposync -l --repoid=   --download_path=/srv/repo/ --newest-only --downloadcomps --download-metadata
 
 
 
@@ -205,6 +204,30 @@ create the database file to make local repo usable in the simplest form
 
  createrepo /repo/<repository_name> 
  
+ 
+ 
+ 
+## Spanning & Tapping
+
+
+aswitch SPAN port
+
+dedicated Tap
+
+
+LAB - Using Tap
+
+yum install nginx
+
+
+
+createrepo -g comps.xml local-base
+
+
+
+
+
+
  
 
 
