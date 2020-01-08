@@ -297,7 +297,7 @@ edit the config file for desired interface
 sudo vi enp0s3
 
 
-set BOOTPROTO=name
+set BOOTPROTO=name ( chage to none)   ONBOOT (change to yes)
 
 set IPADDR= <ip>
 
@@ -305,7 +305,7 @@ set PREFIX=24
 
 set GATEWAY= <gwip>
 
-set DNS1+<dnsip>
+set DNS1=<dnsip>
 
 set DNS2 =<secondary>
 
