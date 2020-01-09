@@ -363,7 +363,7 @@ sudo firewall-cmd --runtime-to-permanent
 
 ### list all firewalld zones
 
-list all firewalld-cmd --list-all-zones
+list all firewall-cmd --list-all-zones
 
 ### Monitoring Activity
 
