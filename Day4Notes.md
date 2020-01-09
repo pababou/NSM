@@ -27,7 +27,7 @@
 
     journalctl -xew stenographer (look for exit)
     
-    ll /etc/stenographer/cert  (look for certificate gernerated, will be empty if no cert)
+    ll /etc/stenographer/certs (look for certificate gernerated, will be empty if no cert)
     
     
     
