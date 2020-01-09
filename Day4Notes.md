@@ -121,7 +121,14 @@
     
     /var/lib/suricata/rules
     
+    edit the following file
+    
     vi /etc/sysconfig/suricata
+    
+    OPTION 
+    
+    
+    
     
     
     sudo cat /proc/cpuinfo | egrep -e 'processor|physical id|core id' | xargs -l3 
