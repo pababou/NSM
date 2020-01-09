@@ -220,7 +220,6 @@ LAB - Using Tap
 yum install nginx
 
 
-
 createrepo -g comps.xml local-base
 
 
@@ -241,6 +240,15 @@ server {
 
 
 
+
+
+sudo systemctl restart network
+
+systemctl start nginx
+
+curl <dns_name>:8008
+
+sudo vi /etc/nginx/conf.d/proxy.conf
 
 
 
