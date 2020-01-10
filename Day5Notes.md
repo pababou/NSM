@@ -116,12 +116,15 @@ vi kafka.zeek
 
 add the following to the kafka.zeek file you just created
 
+
 redef Kafka::topic_name = "zeek-raw";
 redef Kafka::json_timestamps = JSON::TS_ISO8601;
 redef Kafka::tag_json = F;
 redef Kafka::kafka_conf = table(
      ["metadata.broker.list"] = "172.16.2.100:9092"
 );
+
+
 
 vi json.zeek
 
@@ -140,9 +143,16 @@ zeekctl deploy
 
 zeekctl cleanup all
 
+systemctl status zeek (to make sure zeek is running)
+
+
+uncomment #@load scripts/json on the local.zeek   located cd /usr/share/zeek/site/
 
 
 
+## Install fsf
+
+yum install fsf
 
 
 
