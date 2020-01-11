@@ -124,6 +124,24 @@ redef Kafka::kafka_conf = table(
      ["metadata.broker.list"] = "172.16.2.100:9092"
 );
 
+#Enable bro logging to kafka for all logs
+event bro_init() &priority=-5
+{
+    for (stream_id in Log::active_streams)
+    {
+        if (|Kafka::logs_to_send| == 0 || stream_id in Kafka::logs_to_send)
+        {
+            local filter: Log::Filter = [
+                $name = fmt("kafka-%s", stream_id),
+                $writer = Log::WRITER_KAFKAWRITER,
+                $config = table(["stream_id"] = fmt("%s", stream_id))
+            ];
+
+            Log::add_filter(stream_id, filter);
+        }
+    }
+}
+
 
 
 vi json.zeek
@@ -153,6 +171,149 @@ uncomment #@load scripts/json on the local.zeek   located cd /usr/share/zeek/sit
 ## Install fsf
 
 yum install fsf
+
+
+## configure fsf
+
+cd /opt/fsf/
+
+
+vi /opt/fsf/fsf-server/conf/config.py
+
+#!/usr/bin/env python
+#Basic configuration attributes for scanner. Used as default
+#unless the user overrides them.
+
+import socket
+
+SCANNER_CONFIG = { 'LOG_PATH' : '/data/fsf/logs',
+                   'YARA_PATH' : '/var/lib/yara-rules/rules.yara',
+                   'PID_PATH' : '/run/fsf/scanner.pid',
+                   'EXPORT_PATH' : '/data/fsf/files',
+                   'TIMEOUT' : 60,
+                   'MAX_DEPTH' : 10,
+                   'ACTIVE_LOGGING_MODULES' : ['scan_log', 'rockout'],
+                   }
+
+SERVER_CONFIG = { 'IP_ADDRESS' : "172.16.30.102",
+                  'PORT' : 5800 }
+
+
+
+
+vi /opt/fsf/fsf-client/conf/config.py
+
+
+#!/usr/bin/env python
+#Basic configuration attributes for scanner client.
+#'IP Address' is a list. It can contain one element, or more.
+#If you put multiple FSF servers in, the one your client chooses will
+#be done at random. A rudimentary way to distribute tasks.
+
+SERVER_CONFIG = { 'IP_ADDRESS' : ['172.16.30.102',],
+                  'PORT' : 5800 }
+
+#Full path to debug file if run with --suppress-report
+CLIENT_CONFIG = { 'LOG_FILE' : '/tmp/client_dbg.log' }
+
+
+
+mkdir /data/fsf/log/{logs,files}
+
+chown -R fsf: /data/fsf/
+
+systemctl start fsf
+
+systemctl status fsf
+
+ss -lnt 
+
+
+firewall-cmd --add-port=5800/tcp --permanent
+
+firewall-cmd --reload
+
+curl curl -L -O http://192.168.2.11:8009/Bro-cheatsheet.pdf
+
+
+/opt/fsf/fsf-client/fsf_client.py --full Bro-cheatsheet.pdf
+
+
+
+## Kafka
+Overview 
+
+     topic
+
+    partitions
+
+    replication
+
+Install 
+
+    Zookeeper
+ 
+    kafka Node
+    
+Configure
+
+    standalone
+    
+    cluster (entire class)
+    
+
+Download tar ball from official mirrors
+
+
+curl -L -O
+
+untar and move to /opt directory
+
+tar -xzf kafka*
+
+
+yum install zookeeper kafka
+
+
+vi /etc/zookeeper/zoo.cfg   (no change for now)
+
+
+systemctl start zookeeper
+
+systemctl status zookeeper
+
+systemctl enable zookeeper
+
+
+vi /etc/kafka/server.properties (uncomment and add ip  on line 30 and 36)
+
+
+ystemctl start kafka
+
+systemctl status kafka
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
