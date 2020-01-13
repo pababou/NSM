@@ -1,6 +1,7 @@
 # Filebeat
+## Install and configure
 
-/usr/share/kafka/bin/kafka-topics.sh  --list --bootstrap-server 172.16.2.100:9092
+/usr/share/kafka/bin/kafka-topics.sh  --list --bootstrap-server 172.16.30.102:9092
 
 yum install filebeat
 
@@ -40,6 +41,26 @@ processors:
         - Summary
       process_array: true
       max_depth: 10
+      
+      
+    A
+    
+    dd the following under Outputs
+      
+      
+      #================================ Outputs =====================================
+    
+     Configure what output to use when sending the data collected by the beat.
+   
+    141 #-----------------------------Kafka output------------------------------------
+    142 output.kafka:
+    143   hosts: ["172.16.30.102:9092"]
+    144   topic: '%{[fields.kafka_topic]}'
+    
+    
+    comment the Elasticsearch output in the same file
+    
+
 
 
 
