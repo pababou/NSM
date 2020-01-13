@@ -43,9 +43,7 @@ processors:
       max_depth: 10
       
       
-    A
-    
-    dd the following under Outputs
+    Add the following under Outputs
       
       
       #================================ Outputs =====================================
@@ -60,6 +58,83 @@ processors:
     
     comment the Elasticsearch output in the same file
     
+
+/opt/fsf/fsf-client/fsf_client.py /data/fsf/Bro-cheatsheet.pdf
+
+
+## Install elasticsearch
+
+
+yum install elasticsearch
+
+vi /etc/elasticsearch/elasticsearch.yml
+
+
+uncomment .....................
+
+
+
+vi /etc/elasticsearch/jvm.options 
+
+change the  the following 
+
+#Xms represents the initial size of total heap space
+#Xmx represents the maximum size of total heap space
+     21 
+     22 -Xms8g
+     23 -Xmx8g
+     
+  
+
+mkdir /etc/systemd/system/elasticsearch.service.d
+
+vi  /etc/systemd/system/elasticsearch.service.d/overrides.conf
+
+
+[Service]
+LimitMEMLOCK=infinity
+
+
+chown  -R elasticsearch: /data/elasticsearch
+chown  -R elasticsearch: /etc/elasticsearch
+
+firewall-cmd --zone=public --add-port=9200/tcp --permanent
+firewall-cmd --zone=public --add-port=9300/tcp --permanent
+
+
+curl localhost:9200
+
+curl localhost:9200/_cat/nodes?v
+
+
+
+## Install Kibana
+
+yum install kibana
+
+
+
+vi /etc/kibana/kibana.yml 
+
+
+uncomment ...................
+
+7 server.host: "172.16.30.102"
+
+28 elasticsearch.hosts: ["http://localhost:9200"]
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
