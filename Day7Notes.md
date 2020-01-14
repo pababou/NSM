@@ -78,15 +78,57 @@ filter{
       mutate {
            add_field => { "processed_time" => "@timestamp"}
       }
-      date { match => ["ts", "ISO8601"} ] }
+      date { match => ["ts", "ISO8601" ] }
       mutate {
         add_field => {"orig_host" => "%{id.orig_h}"}
         add_field => {"resp_host" => "%{id.resp_h}"}
         add_field => {"src_ip" => "%{id.orig_h}"}
         add_field => {"dst_ip" => "%{id.resp_h}"}
-        add_field => {"related_ips" + []}
-        merge => {"related_ips" => "%{id.orig_h}"}
-        merge => {"related_ips" => "%{id.resp_h}"}
+        add_field => {"related_ips" => []}
+      }
+      mutate {
+        merge => {"related_ips" => "id.orig_h"}
+      }
+      
+      mutate {
+        merge => {"related_ips" => "id.resp_h"}
      }
-    }
+   }
 }
+
+
+/usr/share/kafka/bin/kafka-topics.sh --list --bootstrap-server 172.16.30.102:9092
+
+
+cd ~
+
+systemctl stop logstash suricata stenographer fsf kafka zookeeper elasticsearch
+
+rm -rf /var/lib/zookeeper/version-2/
+
+rm -rf /data/kafka/*
+
+rm -f /data/fsf/logs/rockout.log
+
+rm -f /data/suricata/eve.json
+
+rm -f /data/steno/thread0/packets /index/ packets/
+
+rm -f /data/steno/thread0/packets/*
+
+rm -f /data/steno/thread0/index/*
+
+systemctl start elasticsearch
+
+systemctl start suricata stenographer fsf kafka zookeeper
+
+
+
+
+
+
+
+
+
+
+
