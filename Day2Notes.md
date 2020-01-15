@@ -297,13 +297,13 @@ edit the config file for desired interface
 sudo vi enp0s3
 
 
-set BOOTPROTO=name ( chage to none)   ONBOOT (change to yes)
+set BOOTPROTO=none ( chage to none)   ONBOOT (change to yes)
 
 set IPADDR= <ip>
 
 set PREFIX=24
 
-set GATEWAY= <gwip>
+set GATEWAY= 172.16.30.100cd /
 
 set DNS1=<dnsip>
 
