@@ -233,7 +233,7 @@ firewall-cmd --add-port=5800/tcp --permanent
 
 firewall-cmd --reload
 
-curl curl -L -O http://192.168.2.11:8009/Bro-cheatsheet.pdf
+curl -L -O http://192.168.2.11:8009/Bro-cheatsheet.pdf
 
 
 /opt/fsf/fsf-client/fsf_client.py --full Bro-cheatsheet.pdf
