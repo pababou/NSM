@@ -53,7 +53,7 @@ processors:
     141 #-----------------------------Kafka output------------------------------------
     142 output.kafka:
     143   hosts: ["172.16.30.102:9092"]
-    144   topic: '%{[fields.kafka_topic]}'
+    144   topic: '%{[kafka_topic]}'
     
     
     comment the Elasticsearch output in the same file
