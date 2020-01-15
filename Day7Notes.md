@@ -120,7 +120,7 @@ rm -f /data/steno/thread0/index/*
 
 systemctl start elasticsearch
 
-systemctl stop suricata stenographer fsf kafka zookeeper
+systemctl start suricata stenographer fsf kafka zookeeper
 
 
 
